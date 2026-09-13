@@ -1,482 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ROBLOX MARKET</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
 
-html {
-  scroll-behavior: smooth;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #080b12;
-  color: white;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* NAVBAR */
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: #0d121c;
-  border-bottom: 1px solid #202938;
-  padding: 18px 7%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 22px;
-  font-weight: 900;
-}
-
-.logo span {
-  color: #2979ff;
+    font-family: Arial, sans-serif;
+    background: #080b10;
+    color: white;
 }
 
 nav {
-  display: flex;
-  gap: 22px;
-  align-items: center;
+    height: 70px;
+    background: #0c1118;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8%;
+    border-bottom: 1px solid #18202c;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2979ff;
 }
 
 nav a {
-  color: #c5cad3;
-  font-weight: bold;
-  font-size: 14px;
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
 }
-
-nav a:hover {
-  color: #2979ff;
-}
-
-.discord-nav {
-  background: #2979ff;
-  color: white !important;
-  padding: 10px 15px;
-  border-radius: 7px;
-}
-
-/* HERO */
 
 .hero {
-  min-height: 600px;
-  display: flex;
-  align-items: center;
-  padding: 80px 7%;
-  background:
-    radial-gradient(circle at 80% 30%, #162c55 0%, transparent 35%),
-    #080b12;
-}
-
-.hero-content {
-  max-width: 800px;
-}
-
-.small-title {
-  color: #2979ff;
-  font-weight: 900;
-  letter-spacing: 2px;
-  font-size: 13px;
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #0c1118, #080b10);
 }
 
 .hero h1 {
-  font-size: clamp(45px, 7vw, 85px);
-  line-height: 0.95;
-  margin: 18px 0;
-}
-
-.hero h1 span {
-  color: #2979ff;
+    font-size: 55px;
+    margin-bottom: 15px;
 }
 
 .hero p {
-  color: #8993a3;
-  font-size: 18px;
-  line-height: 1.7;
-  max-width: 650px;
+    color: #9da7b5;
+    font-size: 18px;
 }
-
-.hero-buttons {
-  display: flex;
-  gap: 15px;
-  margin-top: 30px;
-}
-
-.button {
-  padding: 14px 22px;
-  border-radius: 8px;
-  font-weight: 900;
-}
-
-.blue-button {
-  background: #2979ff;
-}
-
-.red-button {
-  background: #5865f2;
-}
-
-/* SECTIONS */
 
 section {
-  padding: 80px 7%;
+    padding: 80px 8%;
 }
 
 .dark-section {
-  background: #0c1119;
+    background: #0c1118;
 }
 
 .section-title {
-  max-width: 1200px;
-  margin: auto auto 35px;
+    text-align: center;
+    margin-bottom: 45px;
 }
 
 .section-title h2 {
-  font-size: 38px;
-  margin: 8px 0;
+    font-size: 35px;
 }
 
 .section-title p {
-  color: #8993a3;
+    color: #8994a3;
+    margin-top: 10px;
 }
 
-/* PRODUCTS */
-
 .products {
-  max-width: 1200px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
 }
 
 .product {
-  background: #10151e;
-  border: 1px solid #222c3b;
-  border-radius: 15px;
-  overflow: hidden;
-  transition: 0.2s;
+    background: #111720;
+    border: 1px solid #202a38;
+    border-radius: 12px;
+    padding: 15px;
+    transition: 0.2s;
 }
 
 .product:hover {
-  transform: translateY(-5px);
-  border-color: #2979ff;
+    transform: translateY(-5px);
+    border-color: #2979ff;
 }
 
 .product-image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  background: #080b12;
-  display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #080b10;
 }
 
-.product-info {
-  padding: 22px;
+.product h3 {
+    margin-top: 15px;
+    font-size: 20px;
 }
 
-.product-info h3 {
-  font-size: 21px;
-  margin: 0 0 10px;
-}
-
-.product-info p {
-  color: #8993a3;
-  line-height: 1.5;
-  min-height: 45px;
-  margin-bottom: 18px;
+.product p {
+    color: #8994a3;
+    margin-top: 8px;
+    min-height: 40px;
 }
 
 .product-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .price {
-  font-size: 20px;
-  font-weight: 900;
-  color: #2979ff;
+    font-size: 20px;
+    font-weight: bold;
+    color: #2979ff;
 }
 
-.buy-button {
-  background: #2979ff;
-  padding: 10px 15px;
-  border-radius: 7px;
-  font-weight: 900;
-  font-size: 13px;
+.buy {
+    background: #2979ff;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.coming-soon {
-  text-align: center;
-  padding: 50px 20px;
-  background: #10151e;
-  border: 1px solid #222c3b;
-  border-radius: 15px;
-  color: #2979ff;
-  font-size: 25px;
-  font-weight: 900;
+.buy:hover {
+    background: #1c63d5;
 }
-
-/* DISCORD */
 
 .discord {
-  max-width: 1100px;
-  margin: auto;
-  text-align: center;
-  padding: 70px 20px;
-  background: #10151e;
-  border: 1px solid #222c3b;
-  border-radius: 15px;
+    text-align: center;
+    padding: 100px 20px;
+    background: #10151e;
 }
 
 .discord h2 {
-  font-size: 38px;
-  margin: 12px 0;
+    font-size: 35px;
+    margin-bottom: 15px;
 }
 
 .discord p {
-  color: #8993a3;
-  max-width: 600px;
-  margin: 0 auto 25px;
-  line-height: 1.6;
+    color: #8994a3;
+    margin-bottom: 25px;
 }
 
-/* FOOTER */
+.discord a {
+    display: inline-block;
+    background: #5865f2;
+    color: white;
+    text-decoration: none;
+    padding: 14px 25px;
+    border-radius: 7px;
+    font-weight: bold;
+}
 
 footer {
-  padding: 35px 7%;
-  border-top: 1px solid #202938;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #687384;
-  font-size: 13px;
-}
-
-/* MOBILE */
-
-@media (max-width: 800px) {
-
-  header {
-    padding: 16px 5%;
-  }
-
-  nav {
-    display: none;
-  }
-
-  .hero {
-    padding: 70px 5%;
-  }
-
-  section {
-    padding: 60px 5%;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-  }
-
-  .button {
     text-align: center;
-  }
-
-  footer {
-    flex-direction: column;
-    gap: 10px;
-  }
+    padding: 30px;
+    background: #080b10;
+    color: #697382;
 }
+
+@media (max-width: 600px) {
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    nav {
+        padding: 0 5%;
+    }
+
+    nav a {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    section {
+        padding: 60px 5%;
+    }
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<header>
 
-  <a href="#home" class="logo">
-    ROBLOX <span>MARKET</span>
-  </a>
+<nav>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#sab">SAB Products</a>
-    <a href="#mm2">MM2 Products</a>
-    <a href="#other">Other Products</a>
-
-    <a
-      class="discord-nav"
-      href="https://discord.gg/HYMytMjCCX"
-      target="_blank">
-      Discord
-    </a>
-  </nav>
-
-</header>
-
-<section class="hero" id="home">
-
-  <div class="hero-content">
-
-    <div class="small-title">
-      WELCOME TO ROBLOX MARKET
+    <div class="logo">
+        ROBLOX MARKET
     </div>
 
-    <h1>
-      YOUR ROBLOX<br>
-      <span>MARKETPLACE.</span>
-    </h1>
+    <div>
+        <a href="#sab">SAB</a>
+        <a href="#mm2">MM2</a>
+        <a href="#other">Other</a>
+        <a href="#discord">Discord</a>
+    </div>
+
+</nav>
+
+
+<section class="hero">
+
+    <h1>ROBLOX MARKET</h1>
 
     <p>
-      Welcome to Roblox Market.
-      Browse our SAB products, MM2 products
-      and other gaming products.
+        Your trusted Roblox marketplace
     </p>
 
-    <div class="hero-buttons">
-
-      <a href="#sab" class="button blue-button">
-        SHOP NOW
-      </a>
-
-      <a
-        href="https://discord.gg/HYMytMjCCX"
-        target="_blank"
-        class="button red-button">
-        JOIN DISCORD
-      </a>
-
-    </div>
-
-  </div>
-
 </section>
+
+
+<!-- SAB -->
 
 <section id="sab">
 
-  <div class="section-title">
+    <div class="section-title">
 
-    <small class="small-title">CATEGORY 01</small>
+        <h2>SAB Products</h2>
 
-    <h2>SAB Products</h2>
+        <p>
+            Steal A Brainrot products
+        </p>
 
-    <p>Browse our SAB products.</p>
-
-  </div>
-
-  <div id="sab-products" class="products">
-
-    <div class="coming-soon">
-      Loading products...
     </div>
 
-  </div>
+    <div class="products">
+
+        <!-- Products automatically appear here -->
+
+    </div>
 
 </section>
+
+
+<!-- MM2 -->
 
 <section id="mm2" class="dark-section">
 
-  <div class="section-title">
+    <div class="section-title">
 
-    <small class="small-title">CATEGORY 02</small>
+        <h2>MM2 Products</h2>
 
-    <h2>MM2 Products</h2>
+        <p>
+            Murder Mystery 2 products
+        </p>
 
-    <p>Browse our MM2 products.</p>
-
-  </div>
-
-  <div id="mm2-products" class="products">
-
-    <div class="coming-soon">
-      Loading products...
     </div>
 
-  </div>
+    <div class="products">
+
+        <!-- Products automatically appear here -->
+
+    </div>
 
 </section>
+
+
+<!-- OTHER -->
 
 <section id="other">
 
-  <div class="section-title">
+    <div class="section-title">
 
-    <small class="small-title">CATEGORY 03</small>
+        <h2>Other Products</h2>
 
-    <h2>Other Products</h2>
+        <p>
+            Other Roblox products
+        </p>
 
-    <p>Browse our other products.</p>
-
-  </div>
-
-  <div id="other-products" class="products">
-
-    <div class="coming-soon">
-      Loading products...
     </div>
 
-  </div>
+    <div class="products">
+
+        <!-- Products automatically appear here -->
+
+    </div>
 
 </section>
 
-<section>
 
-  <div class="discord">
+<!-- DISCORD -->
 
-    <small class="small-title">
-      JOIN THE COMMUNITY
-    </small>
+<section id="discord" class="discord">
 
-    <h2>
-      Join our Discord
-    </h2>
+    <h2>Join Our Discord</h2>
 
     <p>
-      Want to purchase something, ask a question
-      or see our latest products?
-      Join the Roblox Market Discord.
+        Join the Discord to purchase products and get support.
     </p>
 
-    <a
-      href="https://discord.gg/HYMytMjCCX"
-      target="_blank"
-      class="button blue-button">
-      JOIN DISCORD →
+    <a href="https://discord.gg/HYMytMjCCX" target="_blank">
+        JOIN DISCORD
     </a>
 
-  </div>
-
 </section>
+
 
 <footer>
 
-  <div class="logo">
-    ROBLOX <span>MARKET</span>
-  </div>
-
-  <p>
-    © 2026 Roblox Market. All rights reserved.
-  </p>
+    © 2026 ROBLOX MARKET. All rights reserved.
 
 </footer>
 
+
+
 <script>
+
+
+/* ============================= */
+/* SUPABASE SETTINGS              */
+/* ============================= */
 
 const SUPABASE_URL =
 "https://tldlfdztqcwksziosdyl.supabase.co";
@@ -485,148 +341,253 @@ const SUPABASE_KEY =
 "sb_publishable_BD1nN2-272T3_w4E8l0xtQ_f0oTJDW5";
 
 
+/* ============================= */
+/* LOAD PRODUCTS                  */
+/* ============================= */
+
 async function loadProducts() {
 
-  try {
+    try {
 
-    const response = await fetch(
-      SUPABASE_URL + "/rest/v1/PRODUCTS?select=*",
-      {
-        headers: {
-          "apikey": SUPABASE_KEY,
-          "Authorization": "Bearer " + SUPABASE_KEY
+        const response = await fetch(
+            SUPABASE_URL + "/rest/v1/PRODUCTS?select=*",
+            {
+                method: "GET",
+
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": "Bearer " + SUPABASE_KEY
+                }
+            }
+        );
+
+
+        const products = await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "Supabase error:",
+                products
+            );
+
+            showError();
+
+            return;
         }
-      }
-    );
 
-    if (!response.ok) {
-      throw new Error("Could not load products");
+
+        console.log(
+            "Products loaded:",
+            products
+        );
+
+
+        showProducts(
+            "sab",
+            products.filter(product =>
+                String(product.CATAGORY || "")
+                    .trim()
+                    .toLowerCase() === "sab"
+            )
+        );
+
+
+        showProducts(
+            "mm2",
+            products.filter(product =>
+                String(product.CATAGORY || "")
+                    .trim()
+                    .toLowerCase() === "mm2"
+            )
+        );
+
+
+        showProducts(
+            "other",
+            products.filter(product =>
+                String(product.CATAGORY || "")
+                    .trim()
+                    .toLowerCase() === "other"
+            )
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Website error:",
+            error
+        );
+
+        showError();
+
     }
-
-    const products = await response.json();
-
-    showProducts(
-      "sab",
-      products.filter(function(product) {
-        return String(product.CATAGORY || "").toLowerCase() === "sab";
-      })
-    );
-
-    showProducts(
-      "mm2",
-      products.filter(function(product) {
-        return String(product.CATAGORY || "").toLowerCase() === "mm2";
-      })
-    );
-
-    showProducts(
-      "other",
-      products.filter(function(product) {
-        return String(product.CATAGORY || "").toLowerCase() === "other";
-      })
-    );
-
-  } catch (error) {
-
-    console.error(error);
-
-    document.getElementById("sab-products").innerHTML =
-      '<div class="coming-soon">COMING SOON</div>';
-
-    document.getElementById("mm2-products").innerHTML =
-      '<div class="coming-soon">COMING SOON</div>';
-
-    document.getElementById("other-products").innerHTML =
-      '<div class="coming-soon">COMING SOON</div>';
-
-  }
 
 }
 
+
+
+/* ============================= */
+/* DISPLAY PRODUCTS               */
+/* ============================= */
 
 function showProducts(category, products) {
 
-  const container =
-    document.getElementById(category + "-products");
 
-  if (!products.length) {
+    const container =
+        document.querySelector(
+            "#" + category + " .products"
+        );
 
-    container.innerHTML =
-      '<div class="coming-soon">COMING SOON</div>';
 
-    return;
+    if (!container) {
+        return;
+    }
 
-  }
 
-  container.innerHTML = products.map(function(product) {
+    container.innerHTML = "";
 
-    const image =
-      product.IMAGE ||
-      "https://placehold.co/600x400/10151e/2979ff?text=Roblox+Market";
 
-    const discord =
-      product.DISCORD_LINK ||
-      "https://discord.gg/HYMytMjCCX";
+    if (products.length === 0) {
 
-    return `
-      <div class="product">
+        container.innerHTML = `
 
-        <img
-          class="product-image"
-          src="${escapeHtml(image)}"
-          alt="${escapeHtml(product.NAME)}"
-        >
+            <div class="product">
 
-        <div class="product-info">
+                <h3>COMING SOON</h3>
 
-          <h3>
-            ${escapeHtml(product.NAME)}
-          </h3>
+                <p>
+                    No products available yet.
+                </p>
 
-          <p>
-            ${escapeHtml(product.DESCRIPTION || "")}
-          </p>
+            </div>
 
-          <div class="product-bottom">
+        `;
 
-            <span class="price">
-              ${escapeHtml(product.PRICE || "")}
-            </span>
+        return;
+    }
 
-            <a
-              class="buy-button"
-              href="${escapeHtml(discord)}"
-              target="_blank">
-              BUY
-            </a>
 
-          </div>
+    products.forEach(function(product) {
 
-        </div>
 
-      </div>
-    `;
+        const card =
+            document.createElement("div");
 
-  }).join("");
+
+        card.className = "product";
+
+
+        const image =
+            product.IMAGE ||
+            "https://placehold.co/600x400/10151e/2979ff?text=Roblox+Market";
+
+
+        const name =
+            product.NAME || "Product";
+
+
+        const description =
+            product.DESCRIPTION || "";
+
+
+        const price =
+            product.PRICE || "";
+
+
+        const discord =
+            product.DISCORD_LINK ||
+            "https://discord.gg/HYMytMjCCX";
+
+
+        card.innerHTML = `
+
+            <img
+                class="product-image"
+                src="${image}"
+                alt="${name}"
+            >
+
+            <h3>
+                ${name}
+            </h3>
+
+            <p>
+                ${description}
+            </p>
+
+            <div class="product-bottom">
+
+                <span class="price">
+                    ${price}
+                </span>
+
+                <a
+                    class="buy"
+                    href="${discord}"
+                    target="_blank"
+                >
+                    BUY
+                </a>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+
+    });
 
 }
 
 
-function escapeHtml(value) {
 
-  return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+/* ============================= */
+/* ERROR MESSAGE                  */
+/* ============================= */
+
+function showError() {
+
+
+    document.querySelectorAll(
+        ".products"
+    ).forEach(function(container) {
+
+        container.innerHTML = `
+
+            <div class="product">
+
+                <h3>
+                    PRODUCTS FAILED TO LOAD
+                </h3>
+
+                <p>
+                    Please try again later.
+                </p>
+
+            </div>
+
+        `;
+
+    });
 
 }
 
+
+
+/* ============================= */
+/* START                          */
+/* ============================= */
 
 loadProducts();
 
+
 </script>
+
 
 </body>
 </html>
