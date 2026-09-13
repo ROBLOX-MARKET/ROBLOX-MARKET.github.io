@@ -1,1 +1,143 @@
+<script>
 
+const SUPABASE_URL = "https://tldlfdztqcwksziosdyl.supabase.co";
+const SUPABASE_KEY = "sb_publishable_BD1nN2-272T3_w4E8l0xtQ_f0oTJDW5";
+
+const categories = {
+    sab: document.querySelector("#sab .products"),
+    mm2: document.querySelector("#mm2 .products"),
+    other: document.querySelector("#other .products")
+};
+
+async function loadProducts() {
+
+    try {
+
+        const response = await fetch(
+            SUPABASE_URL + "/rest/v1/PRODUCTS?select=*",
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": "Bearer " + SUPABASE_KEY
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Could not load products");
+        }
+
+        const products = await response.json();
+
+        Object.values(categories).forEach(container => {
+            if (container) {
+                container.innerHTML = "";
+            }
+        });
+
+        products.forEach(product => {
+
+            const category = String(
+                product.CATAGORY || ""
+            ).trim().toLowerCase();
+
+            const container = categories[category];
+
+            if (!container) return;
+
+            const card = document.createElement("div");
+
+            card.className = "product";
+
+            card.innerHTML = `
+                <div class="product-image">
+
+                    ${
+                        product.IMAGE
+                        ? `<img
+                            src="${escapeHtml(product.IMAGE)}"
+                            alt="${escapeHtml(product.NAME)}"
+                          >`
+                        : ""
+                    }
+
+                </div>
+
+                <div class="product-info">
+
+                    <h3>
+                        ${escapeHtml(product.NAME)}
+                    </h3>
+
+                    <p>
+                        ${escapeHtml(product.DESCRIPTION || "")}
+                    </p>
+
+                    <div class="product-bottom">
+
+                        <span class="price">
+                            £${escapeHtml(product.PRICE || "0")}
+                        </span>
+
+                        <a
+                            class="buy"
+                            href="${escapeHtml(product.DISCORD_LINK || "#")}"
+                            target="_blank"
+                        >
+                            BUY
+                        </a>
+
+                    </div>
+
+                </div>
+            `;
+
+            container.appendChild(card);
+
+        });
+
+        Object.entries(categories).forEach(
+            ([category, container]) => {
+
+                if (
+                    container &&
+                    container.children.length === 0
+                ) {
+
+                    container.innerHTML = `
+                        <div class="coming-soon">
+                            COMING SOON
+                        </div>
+                    `;
+
+                }
+
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Product loading error:",
+            error
+        );
+
+    }
+
+}
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+loadProducts();
+
+</script>
