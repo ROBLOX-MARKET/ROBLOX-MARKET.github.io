@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +21,6 @@ body {
     background: #080b10;
     color: white;
 }
-
-/* NAVBAR */
 
 nav {
     height: 65px;
@@ -46,8 +45,6 @@ nav a {
     font-size: 14px;
 }
 
-/* HERO */
-
 .hero {
     text-align: center;
     padding: 85px 20px;
@@ -63,8 +60,6 @@ nav a {
     color: #9da7b5;
     font-size: 16px;
 }
-
-/* SECTIONS */
 
 section {
     padding: 65px 6%;
@@ -89,16 +84,12 @@ section {
     font-size: 14px;
 }
 
-/* PRODUCT GRID */
-
 .products {
     display: grid;
     grid-template-columns: repeat(auto-fill, 150px);
     gap: 18px;
     justify-content: center;
 }
-
-/* PRODUCT CARD */
 
 .product {
     width: 150px;
@@ -114,8 +105,6 @@ section {
     border-color: #2979ff;
 }
 
-/* SQUARE IMAGE */
-
 .product-image {
     width: 136px;
     height: 136px;
@@ -125,8 +114,6 @@ section {
     background: #080b10;
 }
 
-/* PRODUCT NAME */
-
 .product h3 {
     margin-top: 10px;
     font-size: 15px;
@@ -134,8 +121,6 @@ section {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-/* DESCRIPTION */
 
 .product p {
     color: #8994a3;
@@ -145,8 +130,6 @@ section {
     height: 30px;
     overflow: hidden;
 }
-
-/* PRICE + BUY */
 
 .product-bottom {
     display: flex;
@@ -166,16 +149,21 @@ section {
     color: white;
     padding: 6px 9px;
     border-radius: 5px;
+    border: none;
     text-decoration: none;
     font-weight: bold;
     font-size: 10px;
+    cursor: pointer;
 }
 
 .buy:hover {
     background: #1c63d5;
 }
 
-/* DISCORD */
+.buy:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
 
 .discord {
     text-align: center;
@@ -203,8 +191,6 @@ section {
     font-weight: bold;
 }
 
-/* FOOTER */
-
 footer {
     text-align: center;
     padding: 25px;
@@ -212,8 +198,6 @@ footer {
     color: #697382;
     font-size: 13px;
 }
-
-/* MOBILE */
 
 @media (max-width: 600px) {
 
@@ -249,19 +233,11 @@ footer {
 
 }
 
-
-/* ========================= */
-/* SUPABASE JAVASCRIPT STYLE */
-/* ========================= */
-
 </style>
 
 </head>
 
 <body>
-
-
-<!-- NAVBAR -->
 
 <nav>
 
@@ -270,18 +246,14 @@ footer {
     </div>
 
     <div>
-
         <a href="#sab">SAB</a>
         <a href="#mm2">MM2</a>
         <a href="#other">Other</a>
         <a href="#discord">Discord</a>
-
     </div>
 
 </nav>
 
-
-<!-- HERO -->
 
 <section class="hero">
 
@@ -293,8 +265,6 @@ footer {
 
 </section>
 
-
-<!-- SAB -->
 
 <section id="sab">
 
@@ -313,8 +283,6 @@ footer {
 </section>
 
 
-<!-- MM2 -->
-
 <section id="mm2" class="dark-section">
 
     <div class="section-title">
@@ -332,8 +300,6 @@ footer {
 </section>
 
 
-<!-- OTHER -->
-
 <section id="other">
 
     <div class="section-title">
@@ -350,8 +316,6 @@ footer {
 
 </section>
 
-
-<!-- DISCORD -->
 
 <section id="discord" class="discord">
 
@@ -371,16 +335,12 @@ footer {
 </section>
 
 
-<!-- FOOTER -->
-
 <footer>
 
     © 2026 ROBLOX MARKET. All rights reserved.
 
 </footer>
 
-
-<!-- SUPABASE -->
 
 <script>
 
@@ -402,18 +362,14 @@ async function loadProducts() {
 
                 headers: {
                     "apikey": SUPABASE_KEY,
-                    "Authorization":
-                        "Bearer " + SUPABASE_KEY
+                    "Authorization": "Bearer " + SUPABASE_KEY
                 }
             }
         );
 
-
         const products = await response.json();
 
-
         console.log("PRODUCTS:", products);
-
 
         if (!response.ok) {
 
@@ -427,41 +383,9 @@ async function loadProducts() {
             return;
         }
 
-
-        showCategory(
-            "sab",
-            products.filter(function(product) {
-
-                return String(
-                    product.CATAGORY || ""
-                ).trim().toLowerCase() === "sab";
-
-            })
-        );
-
-
-        showCategory(
-            "mm2",
-            products.filter(function(product) {
-
-                return String(
-                    product.CATAGORY || ""
-                ).trim().toLowerCase() === "mm2";
-
-            })
-        );
-
-
-        showCategory(
-            "other",
-            products.filter(function(product) {
-
-                return String(
-                    product.CATAGORY || ""
-                ).trim().toLowerCase() === "other";
-
-            })
-        );
+        showCategory("sab", products);
+        showCategory("mm2", products);
+        showCategory("other", products);
 
     }
 
@@ -486,16 +410,24 @@ function showCategory(category, products) {
             "#" + category + " .products"
         );
 
-
     if (!container) {
         return;
     }
 
-
     container.innerHTML = "";
 
 
-    if (products.length === 0) {
+    const matchingProducts =
+        products.filter(function(product) {
+
+            return String(
+                product.CATAGORY || ""
+            ).trim().toLowerCase() === category;
+
+        });
+
+
+    if (matchingProducts.length === 0) {
 
         container.innerHTML = `
 
@@ -515,12 +447,10 @@ function showCategory(category, products) {
     }
 
 
-    products.forEach(function(product) {
-
+    matchingProducts.forEach(function(product) {
 
         const card =
             document.createElement("div");
-
 
         card.className = "product";
 
@@ -545,11 +475,6 @@ function showCategory(category, products) {
             "";
 
 
-        const discord =
-            product.DISCORD_LINK ||
-            "https://discord.gg/HYMytMjCCX";
-
-
         card.innerHTML = `
 
             <img
@@ -572,22 +497,150 @@ function showCategory(category, products) {
                     ${price}
                 </span>
 
-                <a
+                <button
                     class="buy"
-                    href="${discord}"
-                    target="_blank"
+                    type="button"
                 >
                     BUY
-                </a>
+                </button>
 
             </div>
 
         `;
 
 
+        const buyButton =
+            card.querySelector(".buy");
+
+
+        buyButton.addEventListener(
+            "click",
+            function() {
+
+                buyProduct(
+                    name,
+                    buyButton
+                );
+
+            }
+        );
+
+
         container.appendChild(card);
 
     });
+
+}
+
+
+async function buyProduct(
+    productName,
+    button
+) {
+
+    try {
+
+        button.disabled = true;
+
+        button.textContent = "LOADING...";
+
+
+        const response = await fetch(
+
+            SUPABASE_URL +
+            "/functions/v1/create-checkout",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY
+
+                },
+
+                body: JSON.stringify({
+
+                    productName:
+                        productName
+
+                })
+
+            }
+
+        );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "STRIPE CHECKOUT:",
+            data
+        );
+
+
+        if (!response.ok) {
+
+            console.error(
+                "CHECKOUT ERROR:",
+                data
+            );
+
+            alert(
+                data.error ||
+                "Payment could not be started."
+            );
+
+            button.disabled = false;
+
+            button.textContent = "BUY";
+
+            return;
+        }
+
+
+        if (!data.url) {
+
+            alert(
+                "Stripe checkout URL was not returned."
+            );
+
+            button.disabled = false;
+
+            button.textContent = "BUY";
+
+            return;
+        }
+
+
+        window.location.href =
+            data.url;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "PAYMENT ERROR:",
+            error
+        );
+
+        alert(
+            "Payment could not be started."
+        );
+
+        button.disabled = false;
+
+        button.textContent = "BUY";
+
+    }
 
 }
 
@@ -627,3 +680,4 @@ loadProducts();
 </body>
 
 </html>
+```
