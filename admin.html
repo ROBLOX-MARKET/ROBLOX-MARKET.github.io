@@ -1,332 +1,313 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roblox Market Admin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox Market Admin</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #080b12;
-      color: white;
-      padding: 30px;
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #080b12;
+  color: white;
+  padding: 30px;
+}
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-    }
+.container {
+  max-width: 900px;
+  margin: auto;
+}
 
-    h1 {
-      color: #2979ff;
-    }
+h1 { color: #2979ff; }
 
-    .box {
-      background: #10151e;
-      border: 1px solid #222c3b;
-      border-radius: 15px;
-      padding: 25px;
-      margin-bottom: 25px;
-    }
+.box {
+  background: #10151e;
+  border: 1px solid #222c3b;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
 
-    label {
-      display: block;
-      margin-top: 15px;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 13px;
-      border-radius: 8px;
-      border: 1px solid #303b4d;
-      background: #080b12;
-      color: white;
-      font-size: 15px;
-    }
+input, textarea, select {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  border: 1px solid #303b4d;
+  background: #080b12;
+  color: white;
+  font-size: 15px;
+}
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
 
-    button {
-      margin-top: 20px;
-      padding: 13px 20px;
-      border: 0;
-      border-radius: 8px;
-      background: #2979ff;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
+button {
+  margin-top: 20px;
+  padding: 13px 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #2979ff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    button:hover {
-      opacity: 0.85;
-    }
+.delete {
+  background: #ef3340;
+  margin-top: 0;
+}
 
-    .product {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      padding: 18px 0;
-      border-bottom: 1px solid #222c3b;
-    }
+.message {
+  margin-top: 15px;
+  color: #2979ff;
+  font-weight: bold;
+}
 
-    .product:last-child {
-      border-bottom: 0;
-    }
+.product {
+  padding: 18px 0;
+  border-bottom: 1px solid #222c3b;
+}
 
-    .product-info h3 {
-      margin: 0 0 7px;
-    }
+.product:last-child {
+  border-bottom: 0;
+}
 
-    .product-info p {
-      margin: 5px 0;
-      color: #8993a3;
-    }
+.product h3 {
+  margin: 0 0 8px;
+}
 
-    .delete {
-      background: #ef3340;
-      margin-top: 0;
-    }
-
-    .message {
-      margin-top: 15px;
-      color: #2979ff;
-      font-weight: bold;
-    }
-
-    .back {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #9da8b8;
-    }
-  </style>
+.product p {
+  color: #8993a3;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <a class="back" href="index.html">
-    ← Back to website
-  </a>
+<a href="index.html">← Back to website</a>
 
-  <h1>ROBLOX MARKET ADMIN</h1>
+<h1>ROBLOX MARKET ADMIN</h1>
 
-  <div class="box">
+<div class="box">
 
-    <h2>Add Product</h2>
+<h2>Add Product</h2>
 
-    <label>Product Name</label>
-    <input id="name" type="text" placeholder="Example: Chroma Luger">
+<label>Product Name</label>
+<input id="name" placeholder="Example: Chroma Luger">
 
-    <label>Price</label>
-    <input id="price" type="text" placeholder="Example: £5.00">
+<label>Price</label>
+<input id="price" placeholder="Example: £5">
 
-    <label>Description</label>
-    <textarea id="description" placeholder="Product description"></textarea>
+<label>Description</label>
+<textarea id="description" placeholder="Product description"></textarea>
 
-    <label>Image URL</label>
-    <input id="image" type="text" placeholder="Paste image URL here">
+<label>Image URL</label>
+<input id="image" placeholder="Paste image URL">
 
-    <label>Category</label>
-    <select id="category">
-      <option value="sab">SAB</option>
-      <option value="mm2">MM2</option>
-      <option value="other">Other</option>
-    </select>
+<label>Category</label>
+<select id="category">
+<option value="SAB">SAB</option>
+<option value="MM2">MM2</option>
+<option value="Other">Other</option>
+</select>
 
-    <label>Discord Purchase Link</label>
-    <input
-      id="discord_link"
-      type="text"
-      value="https://discord.gg/HYMytMjCCX"
-    >
+<label>Discord Purchase Link</label>
+<input id="discord" value="https://discord.gg/HYMytMjCCX">
 
-    <button onclick="addProduct()">
-      ADD PRODUCT
-    </button>
+<button onclick="addProduct()">ADD PRODUCT</button>
 
-    <div id="message" class="message"></div>
+<div id="message" class="message"></div>
 
-  </div>
+</div>
 
-  <div class="box">
+<div class="box">
 
-    <h2>Current Products</h2>
+<h2>Current Products</h2>
 
-    <div id="products">
-      Loading...
-    </div>
+<div id="products">Loading...</div>
 
-  </div>
+</div>
 
 </div>
 
 <script>
 
 const SUPABASE_URL =
-  "https://tldlfdztqcwksziosdyl.supabase.co";
+"https://tldlfdztqcwksziosdyl.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_BD1nN2-272T3_w4E8l0xtQ_f0oTJDW5";
+"sb_publishable_BD1nN2-272T3_w4E8l0xtQ_f0oTJDW5";
+
 
 async function loadProducts() {
 
-  const response = await fetch(
-    SUPABASE_URL + "/rest/v1/products?select=*",
-    {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY
-      }
-    }
-  );
+const response = await fetch(
+SUPABASE_URL + "/rest/v1/PRODUCTS?select=*",
+{
+headers: {
+"apikey": SUPABASE_KEY,
+"Authorization": "Bearer " + SUPABASE_KEY
+}
+}
+);
 
-  const products = await response.json();
+const products = await response.json();
 
-  const container = document.getElementById("products");
+const box = document.getElementById("products");
 
-  if (!products.length) {
-    container.innerHTML = "<p>No products yet.</p>";
-    return;
-  }
+if (!response.ok) {
+box.innerHTML = "<p>Could not load products.</p>";
+return;
+}
 
-  container.innerHTML = products.map(product => `
+if (!products.length) {
+box.innerHTML = "<p>No products yet.</p>";
+return;
+}
 
-    <div class="product">
+box.innerHTML = products.map(product => `
 
-      <div class="product-info">
+<div class="product">
 
-        <h3>${escapeHtml(product.name)}</h3>
+<h3>${escapeHtml(product.NAME)}</h3>
 
-        <p>
-          ${escapeHtml(product.price || "")}
-          ·
-          ${escapeHtml(product.category || "")}
-        </p>
+<p>
+Price: ${escapeHtml(product.PRICE || "")}
+</p>
 
-        <p>
-          ${escapeHtml(product.description || "")}
-        </p>
+<p>
+Category: ${escapeHtml(product.CATAGORY || "")}
+</p>
 
-      </div>
+<p>
+${escapeHtml(product.DESCRIPTION || "")}
+</p>
 
-      <button
-        class="delete"
-        onclick="deleteProduct('${product.id}')"
-      >
-        DELETE
-      </button>
+<button class="delete"
+onclick="deleteProduct('${encodeURIComponent(product.NAME)}')">
+DELETE
+</button>
 
-    </div>
+</div>
 
-  `).join("");
+`).join("");
+
 }
 
 
 async function addProduct() {
 
-  const product = {
+const product = {
 
-    name: document.getElementById("name").value,
+NAME: document.getElementById("name").value,
 
-    price: document.getElementById("price").value,
+PRICE: document.getElementById("price").value,
 
-    description: document.getElementById("description").value,
+CATAGORY: document.getElementById("category").value,
 
-    image: document.getElementById("image").value,
+DESCRIPTION: document.getElementById("description").value,
 
-    category: document.getElementById("category").value,
+IMAGE: document.getElementById("image").value,
 
-    discord_link:
-      document.getElementById("discord_link").value
+DISCORD_LINK: document.getElementById("discord").value
 
-  };
+};
 
-  if (!product.name) {
-    alert("Enter a product name.");
-    return;
-  }
+if (!product.NAME) {
+alert("Enter a product name.");
+return;
+}
 
-  const response = await fetch(
-    SUPABASE_URL + "/rest/v1/products",
-    {
-      method: "POST",
+const response = await fetch(
+SUPABASE_URL + "/rest/v1/PRODUCTS",
+{
+method: "POST",
 
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
-        "Content-Type": "application/json",
-        "Prefer": "return=minimal"
-      },
+headers: {
+"apikey": SUPABASE_KEY,
+"Authorization": "Bearer " + SUPABASE_KEY,
+"Content-Type": "application/json",
+"Prefer": "return=minimal"
+},
 
-      body: JSON.stringify(product)
-    }
-  );
+body: JSON.stringify(product)
+}
+);
 
-  if (!response.ok) {
+if (!response.ok) {
 
-    document.getElementById("message").textContent =
-      "Could not add product.";
+const error = await response.text();
 
-    return;
-  }
+console.error(error);
 
-  document.getElementById("message").textContent =
-    "Product added!";
+document.getElementById("message").textContent =
+"Could not add product.";
 
-  document.getElementById("name").value = "";
-  document.getElementById("price").value = "";
-  document.getElementById("description").value = "";
-  document.getElementById("image").value = "";
+return;
+}
 
-  loadProducts();
+document.getElementById("message").textContent =
+"Product added!";
+
+document.getElementById("name").value = "";
+document.getElementById("price").value = "";
+document.getElementById("description").value = "";
+document.getElementById("image").value = "";
+
+loadProducts();
+
 }
 
 
-async function deleteProduct(id) {
+async function deleteProduct(name) {
 
-  if (!confirm("Delete this product?")) {
-    return;
-  }
+if (!confirm("Delete this product?")) {
+return;
+}
 
-  await fetch(
-    SUPABASE_URL + "/rest/v1/products?id=eq." + id,
-    {
-      method: "DELETE",
+const response = await fetch(
+SUPABASE_URL +
+"/rest/v1/PRODUCTS?NAME=eq." +
+name,
+{
+method: "DELETE",
 
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY
-      }
-    }
-  );
+headers: {
+"apikey": SUPABASE_KEY,
+"Authorization": "Bearer " + SUPABASE_KEY
+}
+}
+);
 
-  loadProducts();
+loadProducts();
+
 }
 
 
 function escapeHtml(value) {
 
-  return String(value || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+return String(value || "")
+.replaceAll("&", "&amp;")
+.replaceAll("<", "&lt;")
+.replaceAll(">", "&gt;")
+.replaceAll('"', "&quot;")
+.replaceAll("'", "&#039;");
+
 }
 
 
@@ -336,3 +317,4 @@ loadProducts();
 
 </body>
 </html>
+```
