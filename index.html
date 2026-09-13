@@ -1,5 +1,7 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,9 +12,9 @@
 <style>
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -20,6 +22,9 @@ body {
     background: #080b10;
     color: white;
 }
+
+
+/* NAVBAR */
 
 nav {
     height: 70px;
@@ -43,6 +48,9 @@ nav a {
     margin-left: 25px;
 }
 
+
+/* HERO */
+
 .hero {
     text-align: center;
     padding: 100px 20px;
@@ -58,6 +66,9 @@ nav a {
     color: #9da7b5;
     font-size: 18px;
 }
+
+
+/* SECTIONS */
 
 section {
     padding: 80px 8%;
@@ -81,17 +92,25 @@ section {
     margin-top: 10px;
 }
 
+
+/* PRODUCT GRID */
+
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, 220px);
     gap: 25px;
+    justify-content: center;
 }
 
+
+/* PRODUCT CARD */
+
 .product {
+    width: 220px;
     background: #111720;
     border: 1px solid #202a38;
     border-radius: 12px;
-    padding: 15px;
+    padding: 12px;
     transition: 0.2s;
 }
 
@@ -100,34 +119,45 @@ section {
     border-color: #2979ff;
 }
 
+
+/* PRODUCT IMAGE */
+
 .product-image {
-    width: 100%;
-    height: 180px;
+    width: 196px;
+    height: 196px;
     object-fit: cover;
+    display: block;
     border-radius: 8px;
     background: #080b10;
 }
 
+
+/* PRODUCT TEXT */
+
 .product h3 {
-    margin-top: 15px;
-    font-size: 20px;
+    margin-top: 14px;
+    font-size: 18px;
 }
 
 .product p {
     color: #8994a3;
-    margin-top: 8px;
-    min-height: 40px;
+    margin-top: 7px;
+    font-size: 14px;
+    min-height: 35px;
 }
+
+
+/* PRICE + BUY */
 
 .product-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 16px;
 }
 
 .price {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #2979ff;
 }
@@ -135,15 +165,19 @@ section {
 .buy {
     background: #2979ff;
     color: white;
-    padding: 10px 18px;
+    padding: 8px 14px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: bold;
+    font-size: 13px;
 }
 
 .buy:hover {
     background: #1c63d5;
 }
+
+
+/* DISCORD */
 
 .discord {
     text-align: center;
@@ -171,6 +205,9 @@ section {
     font-weight: bold;
 }
 
+
+/* FOOTER */
+
 footer {
     text-align: center;
     padding: 30px;
@@ -178,33 +215,56 @@ footer {
     color: #697382;
 }
 
-@media (max-width: 600px) {
 
-    .hero h1 {
-        font-size: 40px;
-    }
+/* MOBILE */
+
+@media (max-width: 600px) {
 
     nav {
         padding: 0 5%;
     }
 
     nav a {
-        margin-left: 10px;
-        font-size: 14px;
+        margin-left: 8px;
+        font-size: 12px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
     }
 
     section {
         padding: 60px 5%;
     }
 
+    .products {
+        grid-template-columns: repeat(2, 160px);
+        gap: 15px;
+    }
+
+    .product {
+        width: 160px;
+    }
+
+    .product-image {
+        width: 136px;
+        height: 136px;
+    }
+
 }
+
+
+/* END CSS */
 
 </style>
 
 </head>
 
+
 <body>
 
+
+<!-- NAVBAR -->
 
 <nav>
 
@@ -213,14 +273,22 @@ footer {
     </div>
 
     <div>
+
         <a href="#sab">SAB</a>
+
         <a href="#mm2">MM2</a>
+
         <a href="#other">Other</a>
+
         <a href="#discord">Discord</a>
+
     </div>
 
 </nav>
 
+
+
+<!-- HERO -->
 
 <section class="hero">
 
@@ -231,6 +299,7 @@ footer {
     </p>
 
 </section>
+
 
 
 <!-- SAB -->
@@ -247,13 +316,15 @@ footer {
 
     </div>
 
+
     <div class="products">
 
-        <!-- Products automatically appear here -->
+        <!-- SAB PRODUCTS LOAD HERE -->
 
     </div>
 
 </section>
+
 
 
 <!-- MM2 -->
@@ -270,13 +341,15 @@ footer {
 
     </div>
 
+
     <div class="products">
 
-        <!-- Products automatically appear here -->
+        <!-- MM2 PRODUCTS LOAD HERE -->
 
     </div>
 
 </section>
+
 
 
 <!-- OTHER -->
@@ -293,13 +366,15 @@ footer {
 
     </div>
 
+
     <div class="products">
 
-        <!-- Products automatically appear here -->
+        <!-- OTHER PRODUCTS LOAD HERE -->
 
     </div>
 
 </section>
+
 
 
 <!-- DISCORD -->
@@ -312,12 +387,18 @@ footer {
         Join the Discord to purchase products and get support.
     </p>
 
-    <a href="https://discord.gg/HYMytMjCCX" target="_blank">
+    <a
+        href="https://discord.gg/HYMytMjCCX"
+        target="_blank"
+    >
         JOIN DISCORD
     </a>
 
 </section>
 
+
+
+<!-- FOOTER -->
 
 <footer>
 
@@ -327,42 +408,55 @@ footer {
 
 
 
+<!-- SUPABASE JAVASCRIPT -->
+
 <script>
 
 
-/* ============================= */
-/* SUPABASE SETTINGS              */
-/* ============================= */
-
 const SUPABASE_URL =
 "https://tldlfdztqcwksziosdyl.supabase.co";
+
 
 const SUPABASE_KEY =
 "sb_publishable_BD1nN2-272T3_w4E8l0xtQ_f0oTJDW5";
 
 
-/* ============================= */
-/* LOAD PRODUCTS                  */
-/* ============================= */
 
 async function loadProducts() {
 
     try {
 
         const response = await fetch(
-            SUPABASE_URL + "/rest/v1/PRODUCTS?select=*",
+
+            SUPABASE_URL +
+            "/rest/v1/PRODUCTS?select=*",
+
             {
+
                 method: "GET",
 
                 headers: {
+
                     "apikey": SUPABASE_KEY,
-                    "Authorization": "Bearer " + SUPABASE_KEY
+
+                    "Authorization":
+                    "Bearer " + SUPABASE_KEY
+
                 }
+
             }
+
         );
 
 
-        const products = await response.json();
+        const products =
+        await response.json();
+
+
+        console.log(
+            "SUPABASE PRODUCTS:",
+            products
+        );
 
 
         if (!response.ok) {
@@ -375,219 +469,28 @@ async function loadProducts() {
             showError();
 
             return;
+
         }
 
 
-        console.log(
-            "Products loaded:",
-            products
-        );
+        displayCategory(
 
-
-        showProducts(
             "sab",
-            products.filter(product =>
-                String(product.CATAGORY || "")
-                    .trim()
-                    .toLowerCase() === "sab"
-            )
+
+            products.filter(function(product) {
+
+                return String(
+                    product.CATAGORY || ""
+                )
+                .trim()
+                .toLowerCase() === "sab";
+
+            })
+
         );
 
 
-        showProducts(
+        displayCategory(
+
             "mm2",
-            products.filter(product =>
-                String(product.CATAGORY || "")
-                    .trim()
-                    .toLowerCase() === "mm2"
-            )
-        );
-
-
-        showProducts(
-            "other",
-            products.filter(product =>
-                String(product.CATAGORY || "")
-                    .trim()
-                    .toLowerCase() === "other"
-            )
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Website error:",
-            error
-        );
-
-        showError();
-
-    }
-
-}
-
-
-
-/* ============================= */
-/* DISPLAY PRODUCTS               */
-/* ============================= */
-
-function showProducts(category, products) {
-
-
-    const container =
-        document.querySelector(
-            "#" + category + " .products"
-        );
-
-
-    if (!container) {
-        return;
-    }
-
-
-    container.innerHTML = "";
-
-
-    if (products.length === 0) {
-
-        container.innerHTML = `
-
-            <div class="product">
-
-                <h3>COMING SOON</h3>
-
-                <p>
-                    No products available yet.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    products.forEach(function(product) {
-
-
-        const card =
-            document.createElement("div");
-
-
-        card.className = "product";
-
-
-        const image =
-            product.IMAGE ||
-            "https://placehold.co/600x400/10151e/2979ff?text=Roblox+Market";
-
-
-        const name =
-            product.NAME || "Product";
-
-
-        const description =
-            product.DESCRIPTION || "";
-
-
-        const price =
-            product.PRICE || "";
-
-
-        const discord =
-            product.DISCORD_LINK ||
-            "https://discord.gg/HYMytMjCCX";
-
-
-        card.innerHTML = `
-
-            <img
-                class="product-image"
-                src="${image}"
-                alt="${name}"
-            >
-
-            <h3>
-                ${name}
-            </h3>
-
-            <p>
-                ${description}
-            </p>
-
-            <div class="product-bottom">
-
-                <span class="price">
-                    ${price}
-                </span>
-
-                <a
-                    class="buy"
-                    href="${discord}"
-                    target="_blank"
-                >
-                    BUY
-                </a>
-
-            </div>
-
-        `;
-
-
-        container.appendChild(card);
-
-
-    });
-
-}
-
-
-
-/* ============================= */
-/* ERROR MESSAGE                  */
-/* ============================= */
-
-function showError() {
-
-
-    document.querySelectorAll(
-        ".products"
-    ).forEach(function(container) {
-
-        container.innerHTML = `
-
-            <div class="product">
-
-                <h3>
-                    PRODUCTS FAILED TO LOAD
-                </h3>
-
-                <p>
-                    Please try again later.
-                </p>
-
-            </div>
-
-        `;
-
-    });
-
-}
-
-
-
-/* ============================= */
-/* START                          */
-/* ============================= */
-
-loadProducts();
-
-
-</script>
-
-
-</body>
-</html>
+```
