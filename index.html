@@ -1,7 +1,12 @@
-```html
 <script>
+
 const SUPABASE_URL = "https://tldlfdztqcwksziosdyl.supabase.co";
 const SUPABASE_KEY = "sb_publishable_BD1nN2-272T3_w4E8l0xtQ_f0oTJDW5";
+
+
+// ===============================
+// CATEGORY CONTAINERS
+// ===============================
 
 const categories = {
     sab: document.querySelector("#sab .products"),
@@ -10,9 +15,9 @@ const categories = {
 };
 
 
-// =========================
+// ===============================
 // LOAD PRODUCTS
-// =========================
+// ===============================
 
 async function loadProducts() {
 
@@ -35,38 +40,59 @@ async function loadProducts() {
 
         const products = await response.json();
 
-        // Clear old products
-        Object.values(categories).forEach(container => {
+        console.log("Products:", products);
+
+
+        // Clear existing products
+
+        Object.values(categories).forEach(function(container) {
+
             if (container) {
                 container.innerHTML = "";
             }
+
         });
 
-        // Put products into their categories
-        products.forEach(product => {
 
-            const category = String(
-                product.CATAGORY || ""
-            ).trim().toLowerCase();
+        // Add products
+
+        products.forEach(function(product) {
+
+            const category = String(product.CATAGORY || "")
+                .trim()
+                .toLowerCase();
 
             const container = categories[category];
 
-            if (!container) return;
+            if (!container) {
+                return;
+            }
+
+
+            // Create product card
 
             const card = document.createElement("div");
 
             card.className = "product";
 
+
             card.innerHTML = `
+
                 <div class="product-image">
 
                     ${
                         product.IMAGE
-                        ? `<img src="${escapeHtml(product.IMAGE)}" alt="${escapeHtml(product.NAME)}">`
+                        ? `
+                            <img
+                                src="${escapeHtml(product.IMAGE)}"
+                                alt="${escapeHtml(product.NAME)}"
+                            >
+                          `
                         : ""
                     }
 
                 </div>
+
 
                 <div class="product-info">
 
@@ -74,9 +100,11 @@ async function loadProducts() {
                         ${escapeHtml(product.NAME)}
                     </h3>
 
+
                     <p>
                         ${escapeHtml(product.DESCRIPTION || "")}
                     </p>
+
 
                     <div class="product-bottom">
 
@@ -84,135 +112,245 @@ async function loadProducts() {
                             £${escapeHtml(product.PRICE || "0")}
                         </span>
 
-                        <button class="buy">
+
+                        <button
+                            class="buy"
+                            type="button"
+                        >
                             BUY
                         </button>
 
                     </div>
 
                 </div>
+
             `;
 
-            // BUY button
+
+            // BUY BUTTON
+
             const buyButton = card.querySelector(".buy");
 
-            buyButton.addEventListener("click", function () {
-                buyProduct(product.NAME);
+
+            buyButton.addEventListener("click", function() {
+
+                buyProduct(
+                    product.NAME,
+                    buyButton
+                );
+
             });
 
+
+            // Add card to website
+
             container.appendChild(card);
+
         });
 
-        // Show COMING SOON if category is empty
-        Object.entries(categories).forEach(([category, container]) => {
 
-            if (container && container.children.length === 0) {
+        // ===============================
+        // COMING SOON
+        // ===============================
+
+        Object.entries(categories).forEach(function([category, container]) {
+
+            if (
+                container &&
+                container.children.length === 0
+            ) {
 
                 container.innerHTML = `
+
                     <div class="coming-soon">
                         COMING SOON
                     </div>
+
                 `;
+
             }
 
         });
 
+
     } catch (error) {
 
-        console.error("Product loading error:", error);
+        console.error(
+            "Product loading error:",
+            error
+        );
 
     }
 
 }
 
 
-// =========================
-// BUY PRODUCT
-// =========================
 
-async function buyProduct(productName) {
+// ===============================
+// BUY PRODUCT
+// ===============================
+
+async function buyProduct(productName, button) {
 
     try {
 
-        const button = event?.target;
+
+        // Change button
 
         if (button) {
+
             button.disabled = true;
+
             button.textContent = "LOADING...";
+
         }
 
+
+        // Contact Supabase checkout function
+
         const response = await fetch(
-            SUPABASE_URL + "/functions/v1/create-checkout",
+
+            SUPABASE_URL +
+            "/functions/v1/create-checkout",
+
             {
+
                 method: "POST",
 
                 headers: {
-                    "Content-Type": "application/json",
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": "Bearer " + SUPABASE_KEY
+
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        "Bearer " + SUPABASE_KEY
+
                 },
 
                 body: JSON.stringify({
-                    productName: productName
+
+                    productName:
+                        productName
+
                 })
+
             }
+
         );
+
 
         const data = await response.json();
 
-        if (!response.ok || !data.url) {
 
-            console.error(data);
+        console.log(
+            "Stripe checkout:",
+            data
+        );
+
+
+        // Check for error
+
+        if (
+            !response.ok ||
+            !data.url
+        ) {
 
             alert(
                 data.error ||
                 "Could not create checkout."
             );
 
+
             if (button) {
+
                 button.disabled = false;
+
                 button.textContent = "BUY";
+
             }
 
             return;
+
         }
 
-        // Send customer to Stripe Checkout
+
+        // Send customer to Stripe
+
         window.location.href = data.url;
+
 
     } catch (error) {
 
-        console.error(error);
+
+        console.error(
+            "Checkout error:",
+            error
+        );
+
 
         alert(
             "Something went wrong. Please try again."
         );
+
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.textContent = "BUY";
+
+        }
 
     }
 
 }
 
 
-// =========================
+
+// ===============================
 // SECURITY
-// =========================
+// ===============================
 
 function escapeHtml(value) {
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-// =========================
-// START
-// =========================
+
+// ===============================
+// START WEBSITE
+// ===============================
 
 loadProducts();
+
 </script>
-```
