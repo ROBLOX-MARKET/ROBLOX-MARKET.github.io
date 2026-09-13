@@ -34,6 +34,7 @@ async function loadProducts() {
         });
 
         products.forEach(product => {
+
             const category = String(
                 product.CATAGORY || ""
             ).trim().toLowerCase();
@@ -48,11 +49,13 @@ async function loadProducts() {
 
             card.innerHTML = `
                 <div class="product-image">
+
                     ${
                         product.IMAGE
                         ? `<img src="${escapeHtml(product.IMAGE)}" alt="${escapeHtml(product.NAME)}">`
                         : ""
                     }
+
                 </div>
 
                 <div class="product-info">
