@@ -49,13 +49,11 @@ async function loadProducts() {
 
             card.innerHTML = `
                 <div class="product-image">
-
                     ${
                         product.IMAGE
                         ? `<img src="${escapeHtml(product.IMAGE)}" alt="${escapeHtml(product.NAME)}">`
                         : ""
                     }
-
                 </div>
 
                 <div class="product-info">
@@ -118,14 +116,12 @@ async function loadProducts() {
 }
 
 function escapeHtml(value) {
-
     return String(value)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-
 }
 
 loadProducts();
