@@ -1,16 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ROBLOX MARKET</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -58,5 +54,236 @@ section {
 }
 
 section h2 {
-  border-le
-```
+  border-left: 4px solid #2979ff;
+  padding-left: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #10151e;
+  border: 1px solid #222c3b;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: #080b12;
+}
+
+.card-content {
+  padding: 18px;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.description {
+  color: #8993a3;
+}
+
+.price {
+  color: #2979ff;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.buy {
+  display: block;
+  text-align: center;
+  background: #2979ff;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.empty {
+  color: #697486;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #697486;
+  border-top: 1px solid #202938;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>ROBLOX MARKET</h1>
+<p>Premium Roblox Products</p>
+
+<a class="discord"
+href="https://discord.gg/HYMytMjCCX"
+target="_blank">
+JOIN DISCORD
+</a>
+</header>
+
+<div class="container">
+
+<section>
+<h2>SAB PRODUCTS</h2>
+<div id="sab" class="grid">
+<p class="empty">Loading...</p>
+</div>
+</section>
+
+<section>
+<h2>MM2 PRODUCTS</h2>
+<div id="mm2" class="grid">
+<p class="empty">Loading...</p>
+</div>
+</section>
+
+<section>
+<h2>OTHER PRODUCTS</h2>
+<div id="other" class="grid">
+<p class="empty">Loading...</p>
+</div>
+</section>
+
+</div>
+
+<footer>
+ROBLOX MARKET
+</footer>
+
+<script>
+
+const SUPABASE_URL =
+"https://tldlfdztqcwksziosdyl.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_BD1nN2-272T3_w4E8l0xtQ_f0oTJDW5";
+
+async function loadProducts() {
+
+const response = await fetch(
+SUPABASE_URL + "/rest/v1/PRODUCTS?select=*",
+{
+headers: {
+"apikey": SUPABASE_KEY,
+"Authorization": "Bearer " + SUPABASE_KEY
+}
+}
+);
+
+const products = await response.json();
+
+if (!response.ok) {
+console.error(products);
+return;
+}
+
+showProducts(
+products.filter(p =>
+String(p.CATAGORY).toLowerCase() === "sab"
+),
+"sab"
+);
+
+showProducts(
+products.filter(p =>
+String(p.CATAGORY).toLowerCase() === "mm2"
+),
+"mm2"
+);
+
+showProducts(
+products.filter(p =>
+String(p.CATAGORY).toLowerCase() === "other"
+),
+"other"
+);
+
+}
+
+function showProducts(products, id) {
+
+const container = document.getElementById(id);
+
+if (!products.length) {
+container.innerHTML =
+'<p class="empty">COMING SOON</p>';
+return;
+}
+
+container.innerHTML = products.map(product => {
+
+const image =
+product.IMAGE ||
+"https://placehold.co/500x300?text=Roblox+Market";
+
+const discord =
+product.DISCORD_LINK ||
+"https://discord.gg/HYMytMjCCX";
+
+return `
+<div class="card">
+
+<img
+src="${escapeHtml(image)}"
+alt="${escapeHtml(product.NAME)}"
+>
+
+<div class="card-content">
+
+<h3>
+${escapeHtml(product.NAME)}
+</h3>
+
+<p class="description">
+${escapeHtml(product.DESCRIPTION || "")}
+</p>
+
+<div class="price">
+${escapeHtml(product.PRICE || "")}
+</div>
+
+<a
+class="buy"
+href="${escapeHtml(discord)}"
+target="_blank">
+BUY
+</a>
+
+</div>
+</div>
+`;
+
+}).join("");
+
+}
+
+function escapeHtml(value) {
+
+return String(value || "")
+.replaceAll("&", "&amp;")
+.replaceAll("<", "&lt;")
+.replaceAll(">", "&gt;")
+.replaceAll('"', "&quot;")
+.replaceAll("'", "&#039;");
+
+}
+
+loadProducts();
+
+</script>
+
+</body>
+</html>
