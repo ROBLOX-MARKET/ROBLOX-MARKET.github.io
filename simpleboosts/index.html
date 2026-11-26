@@ -15,7 +15,7 @@
   --fg:#f3effb; --muted:#b4a9d0; --faint:#8a7fab;
   --pri:#8b5cf6; --pri2:#a855f7; --pri3:#c084fc; --glow:rgba(139,92,246,.55);
   --good:#34d399; --goodbg:rgba(52,211,153,.12); --warn:#fbbf24; --warnbg:rgba(251,191,36,.12);
-  --rad:18px; --maxw:1160px;
+  --rad:20px; --maxw:1120px;
   --grad:linear-gradient(120deg,#a855f7,#c084fc 40%,#8b5cf6);
   font-family:'Inter',system-ui,sans-serif;
 }
@@ -65,7 +65,9 @@ main{min-height:60vh}
 .page{display:none;animation:fade .4s ease both}
 .page.on{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.sec{padding:64px 0}
+.sec{padding:78px 0}
+.guestnote{background:rgba(168,130,255,.09);border:1px solid var(--line2);border-radius:14px;padding:13px 15px;font-size:13.5px;color:var(--muted);margin-bottom:18px;line-height:1.5}
+.guestnote a{color:var(--pri3);cursor:pointer;font-weight:600;white-space:nowrap}
 .eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:700;color:var(--pri3);margin-bottom:12px}
 
 /* hero */
@@ -96,13 +98,13 @@ main{min-height:60vh}
 .reveal.in{opacity:1;transform:none}
 
 /* feature cards */
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--rad);padding:24px;position:relative;transition:.2s}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--rad);padding:28px;position:relative;transition:.2s}
 .card:hover{border-color:var(--line2);transform:translateY(-4px);box-shadow:0 18px 50px -20px var(--glow)}
 .card .ic{width:46px;height:46px;border-radius:13px;background:rgba(168,130,255,.14);display:grid;place-items:center;margin-bottom:14px;font-size:22px}
 .card h3{font-size:18px;margin-bottom:6px}
 .card p{color:var(--muted);font-size:14.5px;margin:0}
-.sec-head{text-align:center;max-width:620px;margin:0 auto 38px}
+.sec-head{text-align:center;max-width:620px;margin:0 auto 48px}
 .sec-head h2{font-size:clamp(26px,4vw,40px);font-weight:700;letter-spacing:-1px}
 .sec-head p{color:var(--muted);font-size:16px;margin-top:12px}
 
@@ -112,8 +114,8 @@ main{min-height:60vh}
 .toggle button{border:none;background:transparent;color:var(--muted);padding:9px 18px;border-radius:9px;font-weight:600;font-size:14px;transition:.16s}
 .toggle button.on{background:var(--grad);color:#fff}
 .toggle button:disabled{opacity:.45;cursor:not-allowed}
-.prods{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
-.prod{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--rad);padding:20px;display:flex;flex-direction:column;gap:4px;transition:.2s;position:relative;overflow:hidden}
+.prods{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:18px}
+.prod{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--rad);padding:24px;display:flex;flex-direction:column;gap:4px;transition:.2s;position:relative;overflow:hidden}
 .prod:hover{border-color:var(--line2);transform:translateY(-4px);box-shadow:0 18px 50px -24px var(--glow)}
 .prod .tier{font-family:'Space Grotesk';font-weight:700;font-size:20px}
 .prod .sub{color:var(--faint);font-size:13px}
@@ -647,7 +649,6 @@ document.addEventListener("click",function(e){
   var b=e.target.closest("[data-buy]");if(!b)return;
   var p=S.products.find(function(x){return x.id===b.getAttribute("data-buy")});
   if(!p)return;
-  if(!S.session){toast("Sign in to check out","bad");go("account");return}
   openCheckout(p);
 });
 function openCheckout(p){
@@ -655,19 +656,27 @@ function openCheckout(p){
   $("#coModal").classList.add("on");renderCheckout();refreshQuote();
 }
 function renderCheckout(){
-  var p=CO.product,stock=p.stock_tracked;
-  var body='<h2>Checkout</h2><p class="hint" style="margin-bottom:16px">'+esc(p.name)+'</p>';
+  var p=CO.product,stock=p.stock_tracked,guest=!S.session;
+  var body='<h2>Checkout</h2><p class="hint" style="margin-bottom:18px">'+esc(p.name)+'</p>';
+  if(guest){
+    body+='<div class="guestnote">🛒 <b>No account needed.</b> Pop in your details and pay. Want order history &amp; $2-per-$20 credit? <a id="coMakeAcct">Make a free account →</a></div>';
+    body+='<label class="field"><span>Discord username</span><input id="coUser" placeholder="yourname" autocomplete="off"></label>';
+    body+='<label class="field"><span>Email</span><input id="coEmail" type="email" placeholder="you@email.com"></label>';
+  }
   if(stock){body+='<label class="field"><span>Quantity</span><input type="number" id="coQty" min="1" max="100" value="'+CO.qty+'"></label>';}
   body+='<label class="field"><span>Your server invite link'+(stock?' (or Discord @username)':'')+'</span><input id="coServer" placeholder="https://discord.gg/yourserver"></label>';
   body+='<label class="field"><span>Discount code (optional)</span><div style="display:flex;gap:8px"><input id="coCode" placeholder="CODE" value="'+esc(CO.code)+'" style="text-transform:uppercase"><button class="btn" id="coApply">Apply</button></div><div id="coCodeMsg"></div></label>';
-  body+='<label class="field" style="display:flex;align-items:center;gap:10px;flex-direction:row"><input type="checkbox" id="coCredit" '+(CO.useCredit?"checked":"")+' style="width:auto"><span style="margin:0">Use my credit ('+usd(S.balance)+')</span></label>';
+  if(!guest){
+    body+='<label class="field" style="display:flex;align-items:center;gap:10px;flex-direction:row"><input type="checkbox" id="coCredit" '+(CO.useCredit?"checked":"")+' style="width:auto"><span style="margin:0">Use my credit ('+usd(S.balance)+')</span></label>';
+  }
   body+='<div id="coQuote"></div>';
   body+='<div id="coPayWrap"></div>';
   body+='<div id="coErr"></div><button class="btn pri wide" id="coPlace" style="margin-top:14px">Place order</button>';
   $("#coBody").innerHTML=body;
+  if(guest&&$("#coMakeAcct"))$("#coMakeAcct").onclick=function(){$("#coModal").classList.remove("on");go("account")};
   if(stock)$("#coQty").oninput=function(){CO.qty=Math.max(1,Math.min(100,parseInt(this.value)||1));refreshQuote()};
   $("#coApply").onclick=function(){CO.code=$("#coCode").value.trim().toUpperCase();refreshQuote()};
-  $("#coCredit").onchange=function(){CO.useCredit=this.checked;refreshQuote()};
+  if($("#coCredit"))$("#coCredit").onchange=function(){CO.useCredit=this.checked;refreshQuote()};
   $("#coPlace").onclick=placeOrder;
   renderPayPicker();
 }
@@ -679,7 +688,9 @@ function renderPayPicker(){
   $("#coPays").addEventListener("click",function(e){var b=e.target.closest("[data-coin]");if(!b)return;CO.currency=b.getAttribute("data-coin");$all("#coPays button").forEach(function(x){x.classList.toggle("on",x===b)})});
 }
 async function refreshQuote(){
-  var q=await sb.rpc("quote_order_qty",{p_product:CO.product.id,p_code:CO.code||null,p_use_credit:CO.useCredit,p_qty:CO.qty});
+  var q;
+  if(S.session){q=await sb.rpc("quote_order_qty",{p_product:CO.product.id,p_code:CO.code||null,p_use_credit:CO.useCredit,p_qty:CO.qty});}
+  else{q=await sb.rpc("preview_quote",{p_product:CO.product.id,p_code:CO.code||null,p_qty:CO.qty});}
   var data=q.data||{};CO.quote=data;
   var msg=$("#coCodeMsg");
   if(data.error){
@@ -700,20 +711,28 @@ async function placeOrder(){
   var btn=$("#coPlace");var server=CO.product.stock_tracked?($("#coServer").value||"-"):$("#coServer").value;
   $("#coErr").innerHTML="";
   if(!CO.product.stock_tracked&&!server.trim()){$("#coErr").innerHTML='<div class="err">Enter your server invite link.</div>';return}
-  btn.disabled=true;btn.textContent="Placing…";
-  var fn=CO.product.stock_tracked?"place_order_qty":"place_order_qty";
-  var r=await sb.rpc("place_order_qty",{p_product:CO.product.id,p_server:server,p_code:CO.code||null,p_use_credit:CO.useCredit,p_currency:CO.currency,p_qty:CO.qty});
+  var r;
+  if(S.session){
+    btn.disabled=true;btn.textContent="Placing…";
+    r=await sb.rpc("place_order_qty",{p_product:CO.product.id,p_server:server,p_code:CO.code||null,p_use_credit:CO.useCredit,p_currency:CO.currency,p_qty:CO.qty});
+  }else{
+    var u=($("#coUser").value||"").trim(),em2=($("#coEmail").value||"").trim();
+    if(!u){$("#coErr").innerHTML='<div class="err">Enter your Discord username.</div>';return}
+    if(!/.+@.+\..+/.test(em2)){$("#coErr").innerHTML='<div class="err">Enter a valid email.</div>';return}
+    btn.disabled=true;btn.textContent="Placing…";
+    r=await sb.rpc("place_guest_order",{p_product:CO.product.id,p_server:server,p_code:CO.code||null,p_currency:CO.currency,p_qty:CO.qty,p_username:u,p_email:em2});
+  }
   btn.disabled=false;btn.textContent="Place order";
   var d=r.data||{};
   if(r.error){$("#coErr").innerHTML='<div class="err">'+esc(r.error.message||"Something went wrong")+'</div>';return}
   if(d.error){$("#coErr").innerHTML='<div class="err">'+esc(d.error)+'</div>';return}
-  await afterAuth();
+  if(S.session)await afterAuth();
   showOrderSuccess(d);
 }
 async function showOrderSuccess(d){
-  // fetch order number + status
-  var o=await sb.from("orders").select("order_number,total_cents,pay_currency,status,product_name").eq("id",d.order_id).maybeSingle();
-  var ord=o.data||{};var paid=(d.total===0);
+  var num=d.order_number;
+  if(!num&&d.order_id){var o=await sb.from("orders").select("order_number").eq("id",d.order_id).maybeSingle();num=(o.data&&o.data.order_number)}
+  var ord={order_number:num,product_name:CO.product.name};var paid=(d.total===0);
   var addrs=(S.settings&&S.settings.crypto_addresses)||{};var a=addrs[CO.currency]||{};
   var h='<div class="success"><div class="tick">'+(paid?"✅":"🧾")+'</div>';
   h+='<h2>'+(paid?"Order confirmed!":"Order placed!")+'</h2>';
@@ -836,7 +855,7 @@ async function adminDash(stats){
   h+='<div class="astats">'+
     astat(stats.orders_today,"Orders today")+astat(usd(stats.revenue_today_cents||0),"Revenue today")+
     astat(stats.pending,"Awaiting payment")+astat(stats.customers,"Customers")+'</div>';
-  h+='<div class="atabs"><button data-at="orders">Orders</button><button data-at="credit">Give credit</button><button data-at="codes">Discounts</button><button data-at="settings">Settings</button></div><div id="adTabBody"></div>';
+  h+='<div class="atabs"><button data-at="orders">Orders</button><button data-at="credit">Give credit</button><button data-at="products">Products</button><button data-at="codes">Discounts</button><button data-at="settings">Settings</button></div><div id="adTabBody"></div>';
   $("#adBody").innerHTML=h;
   $("#adOut").onclick=function(){S.admin=null;try{sessionStorage.removeItem("sb_admin_pw")}catch(e){}adminGate()};
   $all(".atabs button").forEach(function(b){b.onclick=function(){adTab=b.getAttribute("data-at");paintATabs();adRenderTab()}});
@@ -856,6 +875,15 @@ async function adRenderTab(){
   else if(adTab==="credit"){
     body.innerHTML='<div class="apanel"><h3>🔎 Find customer</h3><div class="aflex"><label class="field"><span>Search username or email</span><input id="cuSearch" placeholder="start typing…"></label><button class="btn" id="cuGo">Search</button></div><div id="cuList" style="margin-top:12px"></div></div>';
     $("#cuGo").onclick=custSearch;$("#cuSearch").onkeydown=function(e){if(e.key==="Enter")custSearch()};custSearch();
+  }
+  else if(adTab==="products"){
+    body.innerHTML='<div class="apanel"><h3>➕ Add a product</h3><div class="aflex">'+
+      '<label class="field"><span>Name</span><input id="pName" placeholder="10x Server Boosts (1 Month)"></label>'+
+      '<label class="field"><span>Category</span><select id="pCat"><option value="boosts">boosts</option><option value="nitro">nitro</option><option value="members">members</option></select></label>'+
+      '<label class="field"><span>Price ($)</span><input id="pPrice" type="number" step="0.01" placeholder="1.00"></label>'+
+      '<button class="btn pri" id="pAdd">Add</button></div><div id="pErr"></div></div>'+
+      '<div class="apanel"><h3>📦 Your products</h3><div id="pList"></div></div>';
+    $("#pAdd").onclick=addProduct;loadProductsAdmin();
   }
   else if(adTab==="codes"){
     body.innerHTML='<div class="apanel"><h3>➕ New discount code</h3><div class="aflex">'+
@@ -908,6 +936,23 @@ async function addCode(){
   var r=await sb.rpc("padmin_create_discount",{p_pw:S.admin,p_code:code,p_kind:kind,p_amount:amount,p_min_cents:0,p_max_uses:max});
   if(r.error){$("#dcErr").innerHTML='<div class="err">'+esc(r.error.message)+'</div>';return}
   toast("Code created","good");$("#dcCode").value="";$("#dcAmt").value="";loadCodes();
+}
+async function addProduct(){
+  $("#pErr").innerHTML="";
+  var name=$("#pName").value.trim(),cat=$("#pCat").value,price=parseFloat($("#pPrice").value);
+  if(!name||!price){$("#pErr").innerHTML='<div class="err">Enter a name and price.</div>';return}
+  var r=await sb.rpc("padmin_add_product",{p_pw:S.admin,p_name:name,p_category:cat,p_price_cents:Math.round(price*100),p_description:"",p_stock_tracked:false});
+  if(r.error){$("#pErr").innerHTML='<div class="err">'+esc(r.error.message)+'</div>';return}
+  toast("Product added","good");$("#pName").value="";$("#pPrice").value="";loadProductsAdmin();loadProducts();
+}
+async function loadProductsAdmin(){
+  var r=await sb.rpc("padmin_list_products",{p_pw:S.admin});var rows=r.data||[];
+  var h='<table class="otable mini"><thead><tr><th>Name</th><th>Cat</th><th>Price</th><th>Sold</th><th>Live</th></tr></thead><tbody>';
+  rows.forEach(function(p){h+='<tr><td>'+esc(p.name)+'</td><td>'+esc(p.category)+'</td><td><div style="display:flex;gap:5px"><input id="pp_'+p.id+'" value="'+(p.price_cents/100).toFixed(2)+'" style="width:62px;padding:6px"><button class="btn sm" data-price="'+p.id+'">Save</button></div></td><td>'+esc(p.sold)+'</td><td><button class="btn sm" data-pact="'+p.id+'" data-on="'+p.active+'">'+(p.active?"On":"Off")+'</button></td></tr>'});
+  h+='</tbody></table>'+(rows.length?"":"<p class='hint'>No products yet.</p>");
+  $("#pList").innerHTML=h;
+  $all("[data-price]").forEach(function(b){b.onclick=async function(){var id=b.getAttribute("data-price");var v=parseFloat($("#pp_"+id).value);if(!v){toast("Enter a price","bad");return}var r=await sb.rpc("padmin_update_product",{p_pw:S.admin,p_id:id,p_price_cents:Math.round(v*100)});if(r.error)toast("Error","bad");else{toast("Price saved","good");loadProducts()}}});
+  $all("[data-pact]").forEach(function(b){b.onclick=async function(){var r=await sb.rpc("padmin_update_product",{p_pw:S.admin,p_id:b.getAttribute("data-pact"),p_active:b.getAttribute("data-on")!=="true"});if(r.error)toast("Error","bad");else{toast("Updated","good");loadProductsAdmin();loadProducts()}}});
 }
 async function toggleSoon(cat,val){
   var r=await sb.rpc("padmin_set_coming_soon",{p_pw:S.admin,p_category:cat,p_value:val});
