@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simple Swaps</title>
+<meta name="description" content="Fast, trusted crypto swaps — swap BTC, LTC, ETH, USDT, SOL and more in minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#0a0612;--bg2:#0f0a1c;--panel:#15102a;--panel2:#1b1436;
+  --line:rgba(168,130,255,.14);--line2:rgba(168,130,255,.26);
+  --fg:#f3effb;--muted:#b4a9d0;--faint:#8a7fab;
+  --pri:#8b5cf6;--pri2:#a855f7;--pri3:#c084fc;--glow:rgba(139,92,246,.55);
+  --good:#34d399;--rad:18px;--maxw:1080px;
+  --grad:linear-gradient(120deg,#a855f7,#c084fc 40%,#8b5cf6);
+  font-family:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden;line-height:1.5}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1100px 600px at 50% -200px,rgba(139,92,246,.3),transparent 60%),
+  radial-gradient(800px 500px at 100% 20%,rgba(168,85,247,.16),transparent 55%),var(--bg)}
+.orb{position:fixed;border-radius:50%;filter:blur(72px);opacity:.5;z-index:-1;pointer-events:none;animation:float 15s ease-in-out infinite}
+.orb.a{width:340px;height:340px;background:radial-gradient(circle,#7c3aed,transparent 70%);top:-50px;left:-40px}
+.orb.b{width:300px;height:300px;background:radial-gradient(circle,#a855f7,transparent 70%);top:50%;right:-60px;animation-delay:-7s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,40px)}}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0;line-height:1.1;text-wrap:balance}
+.grad{background:var(--grad);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 6s linear infinite}
+@keyframes shimmer{to{background-position:220% center}}
+header{position:sticky;top:env(safe-area-inset-top,0);z-index:40;backdrop-filter:blur(16px);background:rgba(10,6,18,.72);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:12px;height:66px}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk';font-weight:700;font-size:19px;letter-spacing:-.3px}
+.brand .logo{width:38px;height:38px;filter:drop-shadow(0 4px 14px var(--glow))}
+.navright{margin-left:auto;display:flex;gap:9px}
+.btn{border:1px solid var(--line2);background:rgba(168,130,255,.07);color:var(--fg);padding:11px 18px;border-radius:12px;font-weight:600;font-size:14.5px;transition:.16s;display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+.btn:hover{background:rgba(168,130,255,.14);transform:translateY(-1px)}
+.btn.pri{background:var(--grad);border:none;color:#fff;box-shadow:0 8px 26px -8px var(--glow)}
+.btn.pri:hover{box-shadow:0 12px 34px -8px var(--glow);transform:translateY(-2px)}
+.btn.sm{padding:8px 13px;font-size:13.5px}
+.hero{text-align:center;padding:76px 0 40px}
+.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:700;color:var(--pri3);margin-bottom:14px}
+.hero h1{font-size:clamp(36px,6vw,66px);font-weight:700;letter-spacing:-1.6px}
+.hero p{color:var(--muted);font-size:18px;max-width:46ch;margin:20px auto 28px}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.coinrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.coin{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 15px 8px 8px;font-weight:600;font-size:14px}
+.cb{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#0a0612}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:10px}
+.stat{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:20px;padding:26px;position:relative;overflow:hidden}
+.stat .n{font-family:'Space Grotesk';font-weight:700;font-size:clamp(28px,4vw,40px);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.stat .l{color:var(--muted);font-size:13.5px;margin-top:8px}
+.stat .ic{position:absolute;right:16px;top:16px;font-size:20px;opacity:.5}
+.stat::after{content:"";position:absolute;right:-26px;bottom:-26px;width:90px;height:90px;background:radial-gradient(circle,var(--glow),transparent 70%);opacity:.35}
+.sec{padding:56px 0}
+.sec-head{text-align:center;max-width:620px;margin:0 auto 34px}
+.sec-head h2{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-1px}
+.sec-head p{color:var(--muted);font-size:16px;margin-top:10px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--rad);padding:26px 22px;position:relative}
+.step .num{width:44px;height:44px;border-radius:13px;background:var(--grad);color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:20px;display:grid;place-items:center;margin-bottom:16px;box-shadow:0 8px 22px -8px var(--glow)}
+.step h3{font-size:18px;margin-bottom:7px}.step p{color:var(--muted);font-size:14.5px;margin:0}
+.feed{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.swap{display:flex;align-items:center;gap:14px;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+.swap .pair{display:flex;align-items:center;gap:9px;font-weight:600}
+.swap .arr{color:var(--pri3);font-size:15px}
+.swap .amt{margin-left:auto;font-family:'Space Grotesk';font-weight:700;font-size:16px}
+.swap .ago{color:var(--faint);font-size:12.5px;min-width:64px;text-align:right}
+.empty{text-align:center;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:44px 20px;color:var(--muted)}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:34px 0;color:var(--faint);font-size:13.5px;text-align:center}
+.live{display:inline-flex;align-items:center;gap:7px;color:var(--good);font-size:12.5px;font-weight:600;margin-top:12px}
+.live .dot{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}70%{box-shadow:0 0 0 8px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+@media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<span class="orb a"></span><span class="orb b"></span>
+<header><div class="wrap nav">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="13" fill="url(#lg)"/><path d="M17 18h12l-3-3m5 11H19l3 3" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a855f7"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs></svg>
+    Simple Swaps
+  </div>
+  <div class="navright"><a class="btn sm pri" id="dcTop" target="_blank" rel="noopener">Start a swap</a></div>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">Instant • Trusted • Low fees</div>
+    <h1>Swap crypto the <span class="grad">simple</span> way</h1>
+    <p>Swap between BTC, LTC, ETH, USDT, SOL and more in minutes — safe, fast and at fair rates. No account, no hassle.</p>
+    <div class="hero-cta">
+      <a class="btn pri" id="dcHero" target="_blank" rel="noopener">Start a swap →</a>
+      <a class="btn" href="#how">How it works</a>
+    </div>
+    <div class="coinrow" id="coinRow"></div>
+  </section>
+
+  <section class="stats" id="stats">
+    <div class="stat"><div class="ic">🔁</div><div class="n" data-c="0">0</div><div class="l">Total swaps completed</div></div>
+    <div class="stat"><div class="ic">💰</div><div class="n" data-c="0" data-usd="1">$0</div><div class="l">All-time swapped</div></div>
+    <div class="stat"><div class="ic">⚡</div><div class="n" data-c="0">0</div><div class="l">Swaps today</div></div>
+    <div class="stat"><div class="ic">🪙</div><div class="n" data-c="0">0</div><div class="l">Coins supported</div></div>
+  </section>
+  <div style="text-align:center"><span class="live"><span class="dot"></span> Live — updates automatically</span></div>
+
+  <section class="sec" id="how">
+    <div class="sec-head"><div class="eyebrow">How it works</div><h2>Swap in <span class="grad">3 steps</span></h2><p>No sign-up needed — just hop in our Discord and we'll handle it.</p></div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Open a swap</h3><p>Join the Discord and start a swap ticket. Tell us what you have and what you want.</p></div>
+      <div class="step"><div class="num">2</div><h3>Send your crypto</h3><p>We lock in a fair rate and give you the address. Send your coin — we confirm on-chain.</p></div>
+      <div class="step"><div class="num">3</div><h3>Get swapped</h3><p>Your new coin is sent straight to your wallet. Done in minutes.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="sec-head"><div class="eyebrow">Live feed</div><h2>Recent <span class="grad">swaps</span></h2><p>Real swaps completed by Simple Swaps.</p></div>
+    <div class="feed" id="feed"><div class="empty">Loading…</div></div>
+  </section>
+</main>
+
+<footer><div class="wrap">Simple Swaps · fast &amp; trusted crypto swaps. Crypto is volatile — only swap what you can afford. Not financial advice.</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.js"></script>
+<script>
+var SB_URL="https://ynrqhvtkbwoykwhqzzyn.supabase.co";
+var SB_KEY="sb_publishable_CLB-k_E9Z9iriahVTxHFEg_b38Djz6q";
+var sb=window.supabase.createClient(SB_URL,SB_KEY);
+var COINS=[["BTC","#f7931a"],["LTC","#5b6fb0"],["ETH","#6b7bd6"],["USDT","#26a17b"],["SOL","#9945ff"],["BNB","#f0b90b"]];
+function el(id){return document.getElementById(id)}
+el("coinRow").innerHTML=COINS.map(function(c){return '<span class="coin"><span class="cb" style="background:'+c[1]+'">'+c[0][0]+'</span>'+c[0]+'</span>'}).join("");
+function fmtUsd(n){n=Math.round(n);if(n>=1000)return "$"+n.toLocaleString();return "$"+n}
+function countUp(node,target,usd){
+  var start=performance.now(),dur=1700;
+  function tick(now){var p=Math.min(1,(now-start)/dur),e=1-Math.pow(1-p,3),v=target*e;
+    node.textContent=usd?fmtUsd(v):Math.floor(v).toLocaleString();
+    if(p<1)requestAnimationFrame(tick);else node.textContent=usd?fmtUsd(target):Math.round(target).toLocaleString();}
+  requestAnimationFrame(tick);
+}
+function ago(t){var s=Math.floor((Date.now()-new Date(t))/1000);if(s<60)return s+"s ago";if(s<3600)return Math.floor(s/60)+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";return Math.floor(s/86400)+"d ago"}
+function coinColor(c){for(var i=0;i<COINS.length;i++)if(COINS[i][0]===c)return COINS[i][1];return "#8b5cf6"}
+function cbadge(c){return '<span class="cb" style="background:'+coinColor(c)+'">'+(c||"?")[0]+'</span>'}
+async function loadDiscord(){
+  var r=await sb.from("settings").select("discord_url").eq("id",1).maybeSingle();
+  var url=(r.data&&r.data.discord_url)||"";var ok=/^https?:\/\//.test(url);
+  ["dcTop","dcHero"].forEach(function(id){var a=el(id);if(ok){a.href=url}else{a.href="#how";a.removeAttribute("target")}});
+}
+async function loadStats(){
+  var r=await sb.rpc("swap_stats");var s=r.data||{count:0,total_usd:0,today:0,coins:0};
+  var nodes=document.querySelectorAll("#stats .n");
+  var vals=[s.count||0, s.total_usd||0, s.today||0, Math.max(s.coins||0, COINS.length)];
+  nodes.forEach(function(n,i){countUp(n,vals[i], n.getAttribute("data-usd")==="1")});
+}
+async function loadFeed(){
+  var r=await sb.from("swaps").select("from_coin,to_coin,from_amount,to_amount,usd_value,username,swapped_at").order("swapped_at",{ascending:false}).limit(8);
+  var rows=r.data||[];var f=el("feed");
+  if(!rows.length){f.innerHTML='<div class="empty"><div style="font-size:28px">🔁</div><div style="margin-top:8px">No swaps yet — be the first! Start one in our Discord.</div></div>';return}
+  f.innerHTML=rows.map(function(s){
+    return '<div class="swap"><div class="pair">'+cbadge(s.from_coin)+s.from_coin+' <span class="arr">→</span> '+cbadge(s.to_coin)+s.to_coin+'</div><div class="amt">'+fmtUsd(s.usd_value||0)+'</div><div class="ago">'+ago(s.swapped_at)+'</div></div>';
+  }).join("");
+}
+function refresh(){loadStats();loadFeed()}
+loadDiscord();refresh();
+setInterval(refresh,20000);
+</script>
+</body>
+</html>
